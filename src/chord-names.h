@@ -105,6 +105,7 @@ map<set<int>,string> CHORD_NAMES = {
     {{0,3,7,10},"m7"},
     {{0,3,7,10,2},"m7add9"},
     {{0,3,7,10,9},"m13"},
+    {{0,3,7,11},"min/maj7"},
 
     {{0,3,6},"dim"},
     {{0,3,6,9},"dim7"},
@@ -175,6 +176,41 @@ string nameChord(const vector<int> chord){
         
     } 
     return name;
+}
+
+vector<string> findPossibleChordNames(vector<int> chord){
+    vector<string> chordNames;
+    for (size_t i = 0; i < chord.size(); i++)
+    {
+        vector<int> inversion;
+        vector<int> left(chord.begin(),chord.begin()+i);
+        vector<int> right(chord.begin()+i,chord.end());
+        inversion = right;
+        inversion.insert( inversion.end(), left.begin(), left.end() );
+
+        chordNames.push_back(nameChord(inversion));
+        
+    }
+
+    return chordNames;
+    
+}
+
+set<string> findAllUniqueChordNamesInVectorOfChords(vector<vector<int>> chordList){
+    set<string> names;
+    for (size_t i = 0; i < chordList.size(); i++)
+    {
+        vector<string> possibleNames = findPossibleChordNames(chordList[i]);
+        for (size_t j = 0; j < possibleNames.size(); j++)
+        {
+            names.insert(possibleNames[i]);
+        }
+        
+    }
+
+    return names;
+    
+
 }
 
 

@@ -48,11 +48,6 @@ TEST(NameChord_TEST, shouldProvideNameForChord) {
 
 }   
 
-TEST(SpellChord_TEST, shouldProvideSpellingForChordName) {
-   
-
-}
-
 TEST(ChordToIntervals_TEST, shouldConvertChordToIntervals) {
     vector<int> intervals = chordToIntervals({0,4,7});
     ASSERT_EQ(2,intervals.size());
@@ -66,5 +61,19 @@ TEST(ReduceChord_TEST, shouldReduceToUniqueNotes) {
     ASSERT_EQ(0,reduced[0]);
     ASSERT_EQ(4,reduced[1]);
     ASSERT_EQ(7,reduced[2]);
+}
+
+TEST(FindPossibleChordNames_TEST, shouldTryAllInversions){
+    vector<string> names = findPossibleChordNames({0,4,7,11});
+    compareNames("Cmaj7",names[0]); 
+    compareNames("?",names[1]); 
+    compareNames("?",names[2]); 
+    compareNames("?",names[3]); 
+
+    names = findPossibleChordNames({0,4,7,9});
+    compareNames("C6",names[0]); 
+    compareNames("?",names[1]); 
+    compareNames("?",names[2]); 
+    compareNames("Am7",names[3]); 
 }
 
