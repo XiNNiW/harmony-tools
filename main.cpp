@@ -44,32 +44,16 @@ int main(int argc, char* argv[], char* envp[]){
         vector<int> triad = convertStringOfIntsToVector(argv[2]);
 
         vector<vector<int>> chords = findPossibleTintintabulationHarmony_4NoteChords(scale, triad);
-        // set<string> names = findAllUniqueChordNamesInVectorOfChords(chords);
+        set<string> names = findAllUniqueChordNamesInVectorOfChords(chords);
 
-        // std::for_each(names.begin(), names.end(), [](const std::string & name)
-        //                                         {
-        //                                             if(name!="?"){
-        //                                                 std::cout << name;
-        //                                                 std::cout << "\n";
-        //                                             }
-        //                                         });
-        for (size_t i = 0; i < chords.size(); i++)
-        {
+        std::for_each(names.begin(), names.end(), [](const std::string & name)
+                                                {
+                                                    if(name!="?"){
+                                                        std::cout << name;
+                                                        std::cout << "\n";
+                                                    }
+                                                });
 
-            vector<string> names = findPossibleChordNames(chords[i]);
-            for (size_t j = 0; j < names.size(); j++)
-            {
-                string name = names[j];
-                if(name!="?"){
-                    std::cout << name;
-                    std::cout << "\n";
-                }
-            }
-            
-            
-        }
-
-        
     } else {
         std::cout << "tintintabulation chord combination helper";
         std::cout << "\n";

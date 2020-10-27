@@ -77,3 +77,17 @@ TEST(FindPossibleChordNames_TEST, shouldTryAllInversions){
     compareNames("Am7",names[3]); 
 }
 
+
+TEST(FindUniqueNames, shouldTryAllInversions){
+    vector<string> names = findPossibleChordNames({0,4,7,11});
+    compareNames("Cmaj7",names[0]); 
+    compareNames("?",names[1]); 
+    compareNames("?",names[2]); 
+    compareNames("?",names[3]); 
+
+    names = findPossibleChordNames({0,4,7,9});
+    compareNames("C6",names[0]); 
+    compareNames("?",names[1]); 
+    compareNames("?",names[2]); 
+    compareNames("Am7",names[3]); 
+}
