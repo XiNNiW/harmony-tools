@@ -8,7 +8,7 @@
 
 using namespace std;
 
-vector<vector<int>> findPossibleTintintabulationHarmony_4NoteChords(vector<int> scale, vector<int> triad){
+vector<vector<int>> findPossibleTintintabulationHarmony_4NoteChords(const vector<int> scale, const vector<int> triad){
     int scaleLength = scale.size();
     int triadLength = triad.size();
     vector<vector<int>> chords = vector<vector<int>>();
@@ -21,6 +21,7 @@ vector<vector<int>> findPossibleTintintabulationHarmony_4NoteChords(vector<int> 
         chords.push_back({triad[0], triad[1], triad[2], scale[i]});
         //}
     }
+
     return chords;
 }
 
