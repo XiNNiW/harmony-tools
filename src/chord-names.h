@@ -196,17 +196,24 @@ vector<string> findPossibleChordNames(vector<int> chord){
     
 }
 
-set<string> findAllUniqueChordNamesInVectorOfChords(vector<vector<int>> chordList){
+vector<string> findAllChordNamesInVectorOfChords(vector<vector<int>> chordList){
+    vector<string> names=vector<string>();
+    for_each(chordList.begin(),chordList.end(),[&](const vector<int> & chord){
+        vector<string> possibleNames = findPossibleChordNames(chord);
+        for_each(possibleNames.begin(),possibleNames.end(),[&](const string & name){
+            names.push_back(name);
+        });
+    });
+
+    return names;
+
+}
+
+set<string> filterToUniqueNames(vector<string> chordList){
     set<string> names=set<string>();
-    for (size_t i = 0; i < chordList.size(); i++)
-    {
-        vector<string> possibleNames = findPossibleChordNames(chordList[i]);
-        for (size_t j = 0; j < possibleNames.size(); j++)
-        {
-            names.insert(possibleNames[j]);
-        }
-        
-    }
+    for_each(chordList.begin(),chordList.end(),[&](const string & name){
+        names.insert(name);
+    });
 
     return names;
 

@@ -3,8 +3,7 @@
 
 #include <vector>
 #include <map>
-
-// #include std::vector;
+#include <algorithm>
 
 using namespace std;
 
@@ -13,12 +12,21 @@ vector<vector<int>> findPossibleTintintabulationHarmony_4NoteChords(const vector
     int triadLength = triad.size();
     vector<vector<int>> chords = vector<vector<int>>();
 
-    for(int i=0; i<scaleLength; i++){
-        chords.push_back({scale[i], scale[(i+2)%scaleLength], scale[(i+4)%scaleLength], triad[0]});
-        chords.push_back({scale[i], scale[(i+2)%scaleLength], scale[(i+4)%scaleLength], triad[1]});
-        chords.push_back({scale[i], scale[(i+2)%scaleLength], scale[(i+4)%scaleLength], triad[2]});
-        chords.push_back({triad[0], triad[1], triad[2], scale[i]});
-    }
+
+    for_each(scale.begin(),scale.end(),[&](const int & scaleNote1){
+        chords.push_back({triad[0], triad[1], triad[2], scaleNote1});
+        for_each(scale.begin(),scale.end(),[&](const int & scaleNote2){
+            chords.push_back({triad[0], triad[1], scaleNote2, scaleNote1});
+            chords.push_back({triad[0], scaleNote2, triad[2], scaleNote1});
+            chords.push_back({scaleNote2, triad[1], triad[2], scaleNote1});
+
+            for_each(scale.begin(),scale.end(),[&](const int & scaleNote3){
+                chords.push_back({triad[0], scaleNote3, scaleNote2, scaleNote1});
+                chords.push_back({triad[1], scaleNote3, scaleNote2, scaleNote1});
+                chords.push_back({triad[2], scaleNote3, scaleNote2, scaleNote1});
+            });
+        });
+    });
 
     return chords;
 }
