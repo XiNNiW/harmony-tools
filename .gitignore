@@ -1,0 +1,14 @@
+.vscode/
+CMakeCache.txt
+CMakeFiles/
+CTestTestfile.cmake
+Makefile
+Testing/
+chord-names_test
+chord-pallet
+cmake_install.cmake
+googletest-build/
+googletest-download/
+googletest-src/
+lib/
+tintintabulation_test
