@@ -126,7 +126,6 @@ vector<int> reduceChord(vector<int> chord){
     }
 
     return reduced;
-    
 }
 
 set<int> normalizeChord(vector<int> chord)
@@ -149,12 +148,12 @@ vector<int> chordToIntervals(vector<int> chord){
     vector<int> intervals = vector<int>();
     if(chord.size()>1){
         int lastNote=chord[0];
-        for(int i=0;i<chord.size()-1;i++){
+        for(int i=0; i<chord.size()-1; i++){
             int severalOctaves =OCTAVE*4;
             int interval = (chord[i+1]+severalOctaves-chord[i])%12;
             intervals.push_back(interval);
         }
-    }else{
+    } else {
         intervals = {0};
     }
 
@@ -175,6 +174,7 @@ string nameChord(const vector<int> chord){
         name = rootName+valenceAndTensions;
         
     } 
+
     return name;
 }
 
@@ -193,7 +193,6 @@ vector<string> findPossibleChordNames(vector<int> chord){
     }
 
     return chordNames;
-    
 }
 
 vector<string> findAllChordNamesInVectorOfChords(vector<vector<int>> chordList){
@@ -206,7 +205,6 @@ vector<string> findAllChordNamesInVectorOfChords(vector<vector<int>> chordList){
     });
 
     return names;
-
 }
 
 set<string> filterToUniqueNames(vector<string> chordList){
@@ -216,7 +214,6 @@ set<string> filterToUniqueNames(vector<string> chordList){
     });
 
     return names;
-
 }
 
 

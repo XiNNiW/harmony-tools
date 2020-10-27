@@ -34,7 +34,6 @@ vector<int> convertStringOfIntsToVector(const string intsAsString){
     }
 
     return ints;
-    
 }
 
 int main(int argc, char* argv[], char* envp[]){
@@ -47,7 +46,9 @@ int main(int argc, char* argv[], char* envp[]){
         vector<string> allNames = findAllChordNamesInVectorOfChords(chords);
         set<string> names = filterToUniqueNames(allNames);
 
+        std::cout << "---------------------------------------\n";
         std::cout << "found " << names.size() << " chords: \n";
+        std::cout << "---------------------------------------\n";
 
         auto printIfKnown = [](const std::string & name)
         {
@@ -58,6 +59,9 @@ int main(int argc, char* argv[], char* envp[]){
         };
 
         std::for_each(names.begin(), names.end(), printIfKnown);
+        std::cout << "...\n";
+        std::cout << (allNames.size()-names.size()) << " were unknown...\n";
+        std::cout << "...\n";
 
 
     } else {
