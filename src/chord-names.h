@@ -23,7 +23,7 @@ enum IntervalType {
     MAJOR_SEVENTH
 };
 
-map<int, string> NOTES = {
+map<int, string> NOTES_TO_NAME = {
     {0, "C"},
     {1, "Db"},
     {2, "D"},
@@ -36,6 +36,21 @@ map<int, string> NOTES = {
     {9, "A"},
     {10, "Bb"},
     {11, "B"}
+};
+
+map<string,int> NAME_TO_NOTE = {
+    {"C",0},
+    {"Db",1},
+    {"D",2},
+    {"Eb",3},
+    {"E",4},
+    {"F",5},
+    {"Gb",6},
+    {"G",7},
+    {"Ab",8},
+    {"A",9},
+    { "Bb",10},
+    { "B",11}
 };
 
 map<int, IntervalType> INTERVALS = {
@@ -114,6 +129,45 @@ map<set<int>,string> CHORD_NAMES = {
     {{0,4,8},"aug"},
 };
 
+template<typename Collection>
+string spellNotes(Collection notes){
+    string spelling = "";
+    auto spell = [&](const int & note){
+        spelling += NOTES_TO_NAME[note%OCTAVE];
+        spelling += " ";
+    };
+    for_each(notes.begin(),notes.end(),spell);
+    return spelling;
+}
+
+string spellChordByName(pair<string,string> name){
+    string spelling = "?";
+    set<int> notesInSpelling = set<int>();
+    for(auto iterator = CHORD_NAMES.begin(); iterator!=CHORD_NAMES.end(); ++iterator){
+        if(iterator->second==name.second){
+            if(iterator->first.size()>notesInSpelling.size()){
+                notesInSpelling = set<int>();
+                
+                for_each(iterator->first.begin(),iterator->first.end(),[&](const int & note){
+                    if(NAME_TO_NOTE.find(name.first)!=NAME_TO_NOTE.end())
+                        notesInSpelling.insert(note+NAME_TO_NOTE[name.first]);
+                });
+                spelling = spellNotes(notesInSpelling);
+            }
+        }
+    }
+
+    return spelling;
+}
+
+vector<string> spellChordsByNotes(vector<vector<int>> chords){
+    vector<string> spellings = vector<string>();
+    for_each(chords.begin(),chords.end(),[&](const vector<int> & chord){
+        spellings.push_back(spellNotes(chord));
+    });
+    return spellings;
+}
+
 
 vector<int> reduceChord(vector<int> chord){
     vector<int> reduced = vector<int>();
@@ -160,8 +214,8 @@ vector<int> chordToIntervals(vector<int> chord){
     return intervals;
 }
 
-string nameChord(const vector<int> chord){
-    string name = "?";
+pair<string, string> nameChord(const vector<int> chord){
+    pair<string,string> name = pair<string,string>({"?","?"});
     vector<int> reducedChord = reduceChord(chord); 
     vector<int> intervals = chordToIntervals(reducedChord);
     set<int> normalizedChord = normalizeChord(chord);
@@ -169,17 +223,17 @@ string nameChord(const vector<int> chord){
     if(CHORD_NAMES.find(normalizedChord)!=CHORD_NAMES.end()){
         
         int root = reducedChord[0]%OCTAVE;
-        string rootName = NOTES[root];
+        string rootName = NOTES_TO_NAME[root];
         string valenceAndTensions = CHORD_NAMES[normalizedChord];
-        name = rootName+valenceAndTensions;
+        name = pair<string,string>({rootName, valenceAndTensions});
         
     } 
 
     return name;
 }
 
-vector<string> findPossibleChordNames(vector<int> chord){
-    vector<string> chordNames;
+vector<pair<string,string>> findPossibleChordNames(vector<int> chord){
+    vector<pair<string,string>> chordNames;
     for (size_t i = 0; i < chord.size(); i++)
     {
         vector<int> inversion;
@@ -195,11 +249,11 @@ vector<string> findPossibleChordNames(vector<int> chord){
     return chordNames;
 }
 
-vector<string> findAllChordNamesInVectorOfChords(vector<vector<int>> chordList){
-    vector<string> names=vector<string>();
+vector<pair<string,string>> findAllChordNamesInVectorOfChords(vector<vector<int>> chordList){
+    vector<pair<string,string>> names=vector<pair<string,string>>();
     for_each(chordList.begin(),chordList.end(),[&](const vector<int> & chord){
-        vector<string> possibleNames = findPossibleChordNames(chord);
-        for_each(possibleNames.begin(),possibleNames.end(),[&](const string & name){
+        vector<pair<string,string>> possibleNames = findPossibleChordNames(chord);
+        for_each(possibleNames.begin(),possibleNames.end(),[&](const pair<string,string> & name){
             names.push_back(name);
         });
     });
@@ -207,14 +261,28 @@ vector<string> findAllChordNamesInVectorOfChords(vector<vector<int>> chordList){
     return names;
 }
 
-set<string> filterToUniqueNames(vector<string> chordList){
-    set<string> names=set<string>();
-    for_each(chordList.begin(),chordList.end(),[&](const string & name){
-        names.insert(name);
+vector<pair<string,string>> filterToUniqueNames(vector<pair<string,string>> chordList){
+    vector<pair<string,string>> uniqueNames = vector<pair<string,string>>();
+    for_each(chordList.begin(),chordList.end(),[&uniqueNames](const pair<string,string> & name){
+        if(uniqueNames.end()==find_if(uniqueNames.begin(),uniqueNames.end(),[=](const pair<string,string> & uniqueName){
+            return uniqueName.first == name.first && uniqueName.second == name.second;
+        })){
+            uniqueNames.push_back(name);
+        }
+        
     });
 
-    return names;
+    return uniqueNames;
 }
+
+vector<pair<string,string>> sortNames(const vector<pair<string,string>> chords){
+    vector<pair<string,string>> sortedChords = vector<pair<string,string>>(chords);
+    std::sort(sortedChords.begin(),sortedChords.end(),[](const pair<string,string> & left, const pair<string,string> & right){
+        return left.first<right.first ;
+    });
+    return sortedChords;
+}
+
 
 
 
