@@ -69,29 +69,41 @@ int main(int argc, char* argv[], char* envp[]){
         vector<int> scale = convertStringOfIntsToVector(argv[1]);
         vector<int> triad = convertStringOfIntsToVector(argv[2]);
 
-        vector<vector<int>> chords = findPossibleTintintabulationHarmony_4NoteChords(scale, triad);
-        vector<pair<string,string>> allNames = findAllChordNamesInVectorOfChords(chords);
-        vector<pair<string,string>> names = sortNames(filterToUniqueNames(allNames));
-
+        vector<vector<int>> chords = findPossibleTintintabulationHarmony(scale, triad);
+        map<int,vector<vector<int>>> mapOfChordsByNumberOfNotes = groupChordsByNumberOfNotes(chords);
+        int countOfFoundChords=0;
         std::cout << "\a";
         std::cout << "---------------------------------------\n";
         std::cout << "scale: " << spellNotes<vector<int>>(scale)<< "\n" << "chord: " << spellNotes<vector<int>>(triad) << "\n";
 
-        std::cout << "---------------------------------------\n";
-        std::cout << "found " << names.size() << " chords: \n";
-        std::cout << "---------------------------------------\n";
         
-        auto printIfKnown = [=](const pair<string,string> & name)
-        {
-            if(name.first!="?"){
-                std::cout << name.first << name.second << makeNSpaces(12-(name.first+name.second).size()) << "-\t" << boldSpecificNotes(spellChordByName(name),triad);
-                std::cout << "\n";
-            }
-        };
+        for (std::pair<int, vector<vector<int>>> pairOfNumberOfNotesToChords : mapOfChordsByNumberOfNotes) {
+            vector<pair<string,string>> uniqueNames = sortNames(
+                filterToUniqueNames(
+                    findAllChordNamesInVectorOfChords(pairOfNumberOfNotesToChords.second)
+                )
+            );
 
-        std::for_each(names.begin(), names.end(), printIfKnown);
-        std::cout << "...\n";
-        std::cout << (allNames.size()-names.size()) << " could not be named or were redundant...\n";
+            if(uniqueNames.size()>0){
+                
+                std::cout << "---------------------------------------\n";
+                std::cout << pairOfNumberOfNotesToChords.first <<" note chords: \n";
+                std::cout << "---------------------------------------\n";
+                
+                auto printChord = [&countOfFoundChords,triad](const pair<string,string> & name)
+                {
+                    std::cout << name.first << name.second << makeNSpaces(18-(name.first+name.second).size()) << "-\t" << boldSpecificNotes(spellChordByName(name),triad);
+                    std::cout << "\n";
+                    countOfFoundChords++;
+                };
+                std::for_each(uniqueNames.begin(), uniqueNames.end(), printChord);
+            
+            }
+            
+            
+        }
+        
+        std::cout << (chords.size()-countOfFoundChords) << " could not be named or were redundant...\n";
         std::cout << "...\n";
 
     } else {

@@ -69,70 +69,286 @@ map<int, IntervalType> INTERVALS = {
 };
 
 map<set<int>,string> CHORD_NAMES = {
-    {{0,2,7},"sus2"},
-    {{0,2,7,5},"add4sus2"},
-    {{0,2,7,9},"6sus2"},
-    {{0,2,7,10},"7sus2"},
-    {{0,2,7,10,5},"7add11sus2"},
-    {{0,2,7,10,9},"7add13sus2"},
-    {{0,2,7,10,9,5},"13sus2"},
-    {{0,2,7,8},"addb13sus2"},
-    {{0,2,7,10,8},"7addb13sus2"},
-    {{0,2,7,10,8,5},"b13sus2"},
-    {{0,2,7,11},"maj7sus2"},
-    {{0,2,7,11,5},"maj7add11sus2"},
-    {{0,2,7,11,9},"maj7add13sus2"},
+    // 2 NOTE CHORDS
+    {{0,7},"5"},
 
-    {{0,4,7},""},
-    {{0,4,7,2},"add9"},
-    {{0,4,7,5},"add4"},
-    {{0,4,7,9},"6"},
-    {{0,4,7,9,2},"69"},
-    {{0,4,7,10},"7"},
-    {{0,4,7,10,2},"9"},
-    {{0,4,7,10,5},"7add11"},
-    {{0,4,7,10,5,2},"11"},
-    {{0,4,7,10,9},"7add13"},
-    {{0,4,7,10,9,5},"13"},
-    {{0,4,7,8}," addb13"},
-    {{0,4,7,10,8},"7addb13"},
-    {{0,4,7,10,8,5}," b13"},
-    {{0,4,7,11},"maj7"},
-    {{0,4,7,11,2},"maj7add9"},
-    {{0,4,7,11,5},"maj7add11"},
-    {{0,4,7,11,9},"maj7add13"},
-
-    {{0,5,7},"sus4"},
-    {{0,5,7,10},"7sus4"},
-    {{0,5,7,2},"9sus4"},
-    {{0,5,7,9},"6sus4"},
-    {{0,5,7,10,9},"7add13sus4"},
-    {{0,5,7,11},"maj7sus4"},
-    {{0,5,7,11,2},"maj7add9sus4"},
-    {{0,5,7,11,9},"maj7add13sus4"},
-
+    // 3 NOTE CHORDS
+    //minor
     {{0,3,7},"m"},
-    {{0,3,7,9},"m6"},
-    {{0,3,7,10},"m7"},
+    //major
+    {{0,4,7},""},
+    //dim
+    {{0,3,6},"dim"},
+    //aug
+    {{0,4,8},"aug"},
+    //sus 2
+    {{0,2,7},"sus2"},
+    //sus 4
+    {{0,5,7},"sus4"},
+
+    
+    // 4 NOTE CHORDS
+    //minor
+    {{0,3,7,1},"maddb9"},
     {{0,3,7,2},"madd9"},
     {{0,3,7,5},"madd11"},
-    {{0,3,7,10,2},"m9"},
-    {{0,3,7,10,5},"m7add11"},
-    {{0,3,7,10,9},"m7add13"},
-    {{0,3,7,10,2,5},"m11"},
-    {{0,3,7,10,2,5,9},"m13"},
-    {{0,3,7,2,5},"madd9add11"},
+    {{0,3,7,6},"madd#11"},
+    {{0,3,7,8},"maddb13"},
+    {{0,3,7,9},"m6"},
+    {{0,3,7,10},"m7"},
     {{0,3,7,11},"min/maj7"},
-
-    {{0,3,6},"dim"},
+    //major
+    {{0,4,7,1},"addb9"},
+    {{0,4,7,2},"add9"},
+    {{0,4,7,5},"add11"},
+    {{0,4,7,6},"add#11"},
+    {{0,4,7,8},"addb13"},
+    {{0,4,7,9},"6"},
+    {{0,4,7,10},"7"},
+    {{0,4,7,11},"maj7"},
+    //dim
     {{0,3,6,9},"dim7"},
     {{0,3,6,10},"m7b5"},
+    //sus 2
+    {{0,2,7,1},"sus2addb9"},
+    {{0,2,7,2},"sus2add9"},
+    {{0,2,7,5},"sus2add11"},
+    {{0,2,7,6},"sus2add#11"},
+    {{0,2,7,8},"sus2addb13"},
+    {{0,2,7,9},"6sus2"},
+    {{0,2,7,10},"7sus2"},
+    {{0,2,7,11},"maj7sus2"},
+    //sus 4
+    {{0,5,7,1},"sus4addb9"},
+    {{0,5,7,2},"sus4add9"},
+    // {{0,5,7,5},"sus4add11"},
+    // {{0,5,7,6},"sus4add#11"},
+    {{0,5,7,8},"sus4addb13"},
+    {{0,5,7,9},"6sus4"},
+    {{0,5,7,10},"7sus4"},
+    {{0,5,7,11},"maj7sus4"},
 
-    {{0,4,8},"aug"},
+    // 5 NOTE CHORDS
+    // minor
+    // {{0,3,7,1,2},"pooop"},
+    {{0,3,7,1,5},"maddb9add11"},
+    {{0,3,7,1,6},"maddb9add#11"},
+    {{0,3,7,1,8},"maddb9addb13"},
+    {{0,3,7,1,9},"m6addb9"},
+    {{0,3,7,1,10},"mb9"},
+    {{0,3,7,1,11},"min/maj7b9"},
+    //
+    {{0,3,7,2,5},"madd9add11"},
+    {{0,3,7,2,6},"madd9add#11"},
+    {{0,3,7,2,8},"madd9addb13"},
+    {{0,3,7,2,9},"6add9"},
+    {{0,3,7,2,10},"m9"},
+    {{0,3,7,2,11},"min/maj79"},
+    //
+    // {{0,3,7,5,6},"pooop"},
+    {{0,3,7,5,8},"madd11addb13"},
+    {{0,3,7,5,9},"m6add11"},
+    {{0,3,7,5,10},"m7add11"},
+    {{0,3,7,5,11},"min/maj7add11"},
+    //
+    {{0,3,7,6,8},"madd#11addb13"},
+    {{0,3,7,6,9},"m6add#11"},
+    {{0,3,7,6,10},"m7add#11"},
+    {{0,3,7,6,11},"min/maj7add#11"},
+    //
+    // {{0,3,7,8,9},"7add13"}, too odd
+    {{0,3,7,8,10},"m7addb13"},
+    {{0,3,7,8,11},"min/maj7addb13"},
+    //
+    {{0,3,7,9,10},"m7add13"},
+    {{0,3,7,9,11},"min/maj7add13"},
+
+    // major
+    // {{0,4,7,1,2},"pooop"},
+    {{0,4,7,1,5},"addb9add11"},
+    {{0,4,7,1,6},"addb9add#11"},
+    {{0,4,7,1,8},"addb9addb13"},
+    {{0,4,7,1,9},"6addb9"},
+    {{0,4,7,1,10},"b9"},
+    {{0,4,7,1,11},"maj7b9"},
+    //
+    {{0,4,7,2,5},"add9add11"},
+    {{0,4,7,2,6},"add9add#11"},
+    {{0,4,7,2,8},"add9addb13"},
+    {{0,4,7,2,9},"6add9"},
+    {{0,4,7,2,10},"9"},
+    {{0,4,7,2,11},"maj79"},
+    //
+    // {{0,4,7,5,6},"pooop"},
+    {{0,4,7,5,8},"add11addb13"},
+    {{0,4,7,5,9},"6add11"},
+    {{0,4,7,5,10},"7add11"},
+    {{0,4,7,5,11},"maj7add11"},
+    //
+    {{0,4,7,6,8},"add#11addb13"},
+    {{0,4,7,6,9},"6add#11"},
+    {{0,4,7,6,10},"7add#11"},
+    {{0,4,7,6,11},"maj7add#11"},
+    //
+    // {{0,4,7,8,9},"7add13"}, too odd
+    {{0,4,7,8,10},"7addb13"},
+    {{0,4,7,8,11},"maj7addb13"},
+    //
+    {{0,4,7,9,10},"7add13"},
+    {{0,4,7,9,11},"maj7add13"},
+    //sus 2
+    {{0,2,7,5,9},"6add4sus2"},
+    {{0,2,7,10,5},"7add11sus2"},
+    {{0,2,7,10,9},"7add13sus2"},
+    {{0,2,7,10,8},"7addb13sus2"},
+    {{0,2,7,11,5},"maj7add11sus2"},
+    {{0,2,7,11,9},"maj7add13sus2"},
+    //#9
+    {{0,4,7,10,3},"7#9"},
+
+    // 6 NOTE CHORDS
+    //minor
+    // {{0,3,7,1,2,5},"poopp"},  
+    // {{0,3,7,1,2,6},"poopp"},  
+    // {{0,3,7,1,2,8},"poopp"},  
+    // {{0,3,7,1,2,9},"poopp"},  
+    // {{0,3,7,1,2,10},"poopp"},  
+    // {{0,3,7,1,2,11},"poopp"},  
+    // {{0,3,7,1,5,6},"poopp"},  
+    {{0,3,7,1,5,8},"maddb9add11addb13"}, 
+    {{0,3,7,1,5,9},"maddb9add11add13"},  
+    {{0,3,7,1,5,10},"m11(b9)"},  
+    // {{0,3,7,1,5,11},"min/maj11(b9)"},  
+    {{0,3,7,1,6,8},"maddb9add#11addb13"},  
+    {{0,3,7,1,6,9},"maddb9add#11add13"},  
+    {{0,3,7,1,6,10},"m#11(b9)"},  
+    // {{0,3,7,1,6,11},"min/maj#11(b9)"}, 
+    // {{0,3,7,1,8,9},"pooop"},  
+    {{0,3,7,1,8,10},"mb9addb13"},  
+    // {{0,3,7,1,8,11},"min/maj7addb9addb13"}, 
+    {{0,3,7,1,9,10},"b9add13"},  
+    // {{0,3,7,1,9,11},"min/maj7addb9add13"}, 
+    //
+    // {{0,3,7,2,5,6},"poop"}, 
+    {{0,3,7,2,5,8},"madd9add11addb13"},
+    {{0,3,7,2,5,9},"madd9add11add13"},  
+    {{0,3,7,2,5,10},"m11"},  
+    // {{0,3,7,2,5,11},"min/maj11"},  
+    {{0,3,7,2,6,8},"madd9add#11addb13"},  
+    {{0,3,7,2,6,9},"madd9add#11add13"},  
+    {{0,3,7,2,6,10},"m#11"},  
+    // {{0,3,7,2,6,11},"min/maj#11"},  
+    // {{0,3,7,2,8,9},"pooop"},  
+    {{0,3,7,2,8,10},"m9addb13"},  
+    // {{0,3,7,2,8,11},"min/maj9addb13"},  
+    {{0,3,7,2,9,10},"m9addb13"},  
+    // {{0,3,7,2,9,11},"min/maj9addb13"}, 
+    //
+    //
+    // {{0,3,7,5,6,8},"poop"}, 
+    // {{0,3,7,5,8,9},"poop"},
+    {{0,3,7,5,8,10},"m7add11addb13"},
+    // {{0,3,7,5,8,11},"min/maj7add11addb13"},
+    {{0,3,7,5,9,10},"m7add11add13"},
+    // {{0,3,7,5,9,11},"min/maj7add11add13"},
+    //
+    {{0,3,7,6,8,10},"m7#11b13"},
+    // {{0,3,7,6,8,11},"min/maj7#11b13"},
+    {{0,3,7,6,9,10},"m7#11add13"},
+    // {{0,3,7,6,9,11},"min/maj7#11add13"},
+    //
+    // {{0,4,7,8,9,10},"poop"},
+    // {{0,4,7,8,10,11},"pooop"},
+    // {{0,4,7,9,10,11},"pooop"},
+     //major
+    // {{0,4,7,1,2,5},"poopp"},  
+    // {{0,4,7,1,2,6},"poopp"},  
+    // {{0,4,7,1,2,8},"poopp"},  
+    // {{0,4,7,1,2,9},"poopp"},  
+    // {{0,4,7,1,2,10},"poopp"},  
+    // {{0,4,7,1,2,11},"poopp"},  
+    // {{0,4,7,1,5,6},"poopp"},  
+    {{0,4,7,1,5,8},"addb9add11addb13"}, 
+    {{0,4,7,1,5,9},"addb9add11add13"},  
+    {{0,4,7,1,5,10},"11(b9)"},  
+    {{0,4,7,1,5,11},"maj11(b9)"},  
+    {{0,4,7,1,6,8},"addb9add#11addb13"},  
+    {{0,4,7,1,6,9},"addb9add#11add13"},  
+    {{0,4,7,1,6,10},"#11(b9)"},  
+    {{0,4,7,1,6,11},"maj#11(b9)"}, 
+    // {{0,4,7,1,8,9},"pooop"},  
+    {{0,4,7,1,8,10},"b9addb13"},  
+    {{0,4,7,1,8,11},"maj7addb9addb13"}, 
+    {{0,4,7,1,9,10},"b9add13"},  
+    {{0,4,7,1,9,11},"maj7addb9add13"}, 
+    //
+    // {{0,4,7,2,5,6},"poop"}, 
+    {{0,4,7,2,5,8},"add9add11addb13"},
+    {{0,4,7,2,5,9},"add9add11add13"},  
+    {{0,4,7,2,5,10},"11"},  
+    {{0,4,7,2,5,11},"maj11"},  
+    {{0,4,7,2,6,8},"add9add#11addb13"},  
+    {{0,4,7,2,6,9},"add9add#11add13"},  
+    {{0,4,7,2,6,10},"#11"},  
+    {{0,4,7,2,6,11},"maj#11"},  
+    // {{0,4,7,2,8,9},"pooop"},  
+    {{0,4,7,2,8,10},"9addb13"},  
+    {{0,4,7,2,8,11},"maj9addb13"},  
+    {{0,4,7,2,9,10},"9addb13"},  
+    {{0,4,7,2,9,11},"maj9addb13"}, 
+    //
+    //
+    // {{0,4,7,5,6,8},"poop"}, 
+    // {{0,4,7,5,8,9},"poop"},
+    {{0,4,7,5,8,10},"7add11addb13"},
+    {{0,4,7,5,8,11},"maj7add11addb13"},
+    {{0,4,7,5,9,10},"7add11add13"},
+    {{0,4,7,5,9,11},"maj7add11add13"},
+    //
+    {{0,4,7,6,8,10},"7#11b13"},
+    {{0,4,7,6,8,11},"maj7#11b13"},
+    {{0,4,7,6,9,10},"7#11add13"},
+    {{0,4,7,6,9,11},"maj7#11add13"},
+    //
+    // {{0,4,7,8,9,10},"poop"},
+    // {{0,4,7,8,10,11},"pooop"},
+    // {{0,4,7,9,10,11},"pooop"},
+    //sus 2
+    {{0,2,7,10,8,5},"b13sus2"},
+    {{0,2,7,10,9,5},"13sus2"},
+
+    //7 NOTE CHORDS
+    //major
+    {{0,4,7,10,1,5,8},"b13(b9)"},  
+    {{0,4,7,10,1,6,8},"b13(b9#11)"},
+    {{0,4,7,10,2,5,8},"b13"},  
+    {{0,4,7,10,2,6,8},"b13(#11)"},  
+    {{0,4,7,10,1,5,9},"13(b9)"},  
+    {{0,4,7,10,1,6,9},"13(b9#11)"},  
+    {{0,4,7,10,2,5,9},"13"},  
+    {{0,4,7,10,2,6,9},"13(#11)"},  
+    {{0,4,7,11,1,5,9},"maj13(b9)"},  
+    {{0,4,7,11,1,6,9},"maj13(b9#11)"},  
+    {{0,4,7,11,2,5,9},"maj13"},  
+    {{0,4,7,11,2,6,9},"maj13(#11)"},  
+    //minor
+    {{0,3,7,10,1,5,8},"mb13(b9)"},  
+    {{0,3,7,10,1,6,8},"mb13(b9#11)"},
+    {{0,3,7,10,2,5,8},"mb13"},  
+    {{0,3,7,10,2,6,8},"mb13(#11)"},  
+    {{0,3,7,10,1,5,9},"m13(b9)"},  
+    {{0,3,7,10,1,6,9},"m13(b9#11)"},  
+    {{0,3,7,10,2,5,9},"m13"},  
+    {{0,3,7,10,2,6,9},"m13(#11)"},  
+    // {{0,3,7,11,1,5,9},"min/maj13(b9)"},  
+    // {{0,3,7,11,1,6,9},"min/maj13(b9#11)"},  
+    // {{0,3,7,11,2,5,9},"min/maj13"},  
+    // {{0,3,7,11,2,6,9},"min/maj13(#11)"},  
+
 };
 
 template<typename Collection>
-string spellNotes(Collection notes){
+string spellNotes(const Collection notes){
     string spelling = "";
     auto spell = [&](const int & note){
         spelling += NOTES_TO_NAME[note%OCTAVE];
@@ -142,7 +358,7 @@ string spellNotes(Collection notes){
     return spelling;
 }
 
-string spellChordByName(pair<string,string> name){
+string spellChordByName(const pair<string,string> name){
     string spelling = "?";
     set<int> notesInSpelling = set<int>();
     for(auto iterator = CHORD_NAMES.begin(); iterator!=CHORD_NAMES.end(); ++iterator){
@@ -162,7 +378,7 @@ string spellChordByName(pair<string,string> name){
     return spelling;
 }
 
-vector<string> spellChordsByNotes(vector<vector<int>> chords){
+vector<string> spellChordsByNotes(const vector<vector<int>> chords){
     vector<string> spellings = vector<string>();
     for_each(chords.begin(),chords.end(),[&](const vector<int> & chord){
         spellings.push_back(spellNotes(chord));
@@ -171,7 +387,7 @@ vector<string> spellChordsByNotes(vector<vector<int>> chords){
 }
 
 
-vector<int> reduceChord(vector<int> chord){
+vector<int> reduceChord(const vector<int> chord){
     vector<int> reduced = vector<int>();
     for (size_t i = 0; i < chord.size(); i++)
     {
@@ -184,7 +400,7 @@ vector<int> reduceChord(vector<int> chord){
     return reduced;
 }
 
-set<int> normalizeChord(vector<int> chord)
+set<int> normalizeChord(const vector<int> chord)
 {   
     vector<int> reduced = reduceChord(chord);
     set<int> normalized = set<int>();
@@ -200,7 +416,23 @@ set<int> normalizeChord(vector<int> chord)
     return normalized;
 }
 
-vector<int> chordToIntervals(vector<int> chord){
+map<int, vector<vector<int>>> groupChordsByNumberOfNotes(const vector<vector<int>> chords){
+     map<int,vector<vector<int>>> chordsByNumberOfNotes = map<int,vector<vector<int>>>();
+     
+     for_each(chords.begin(),chords.end(),[&chordsByNumberOfNotes](vector<int> chord){
+        vector<int> withoutDuplicateNotes = reduceChord(chord);
+        int chordSize = withoutDuplicateNotes.size();
+        if(chordSize>0&&chordSize<=7){
+            if(chordsByNumberOfNotes.find(chordSize)==chordsByNumberOfNotes.end())
+                chordsByNumberOfNotes[chordSize] = vector<vector<int>>();
+            chordsByNumberOfNotes[chordSize].push_back(withoutDuplicateNotes);
+        }
+     });
+
+     return chordsByNumberOfNotes;
+}
+
+vector<int> chordToIntervals(const vector<int> chord){
     vector<int> intervals = vector<int>();
     if(chord.size()>1){
         int lastNote=chord[0];
@@ -234,7 +466,7 @@ pair<string, string> nameChord(const vector<int> chord){
     return name;
 }
 
-vector<pair<string,string>> findPossibleChordNames(vector<int> chord){
+vector<pair<string,string>> findPossibleChordNames(const vector<int> chord){
     vector<pair<string,string>> chordNames;
     for (size_t i = 0; i < chord.size(); i++)
     {
@@ -244,26 +476,29 @@ vector<pair<string,string>> findPossibleChordNames(vector<int> chord){
         inversion = right;
         inversion.insert( inversion.end(), left.begin(), left.end() );
 
-        chordNames.push_back(nameChord(inversion));
+        pair<string,string> name = nameChord(inversion);
+        
+        chordNames.push_back(name);
         
     }
 
     return chordNames;
 }
 
-vector<pair<string,string>> findAllChordNamesInVectorOfChords(vector<vector<int>> chordList){
+vector<pair<string,string>> findAllChordNamesInVectorOfChords(const vector<vector<int>> chordList){
     vector<pair<string,string>> names=vector<pair<string,string>>();
     for_each(chordList.begin(),chordList.end(),[&](const vector<int> & chord){
         vector<pair<string,string>> possibleNames = findPossibleChordNames(chord);
         for_each(possibleNames.begin(),possibleNames.end(),[&](const pair<string,string> & name){
-            names.push_back(name);
+            if(name.first!="?")
+                names.push_back(name);
         });
     });
 
     return names;
 }
 
-vector<pair<string,string>> filterToUniqueNames(vector<pair<string,string>> chordList){
+vector<pair<string,string>> filterToUniqueNames(const vector<pair<string,string>> chordList){
     vector<pair<string,string>> uniqueNames = vector<pair<string,string>>();
     for_each(chordList.begin(),chordList.end(),[&uniqueNames](const pair<string,string> & name){
         if(uniqueNames.end()==find_if(uniqueNames.begin(),uniqueNames.end(),[=](const pair<string,string> & uniqueName){
