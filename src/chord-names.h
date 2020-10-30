@@ -515,9 +515,34 @@ vector<pair<string,string>> filterToUniqueNames(const vector<pair<string,string>
 vector<pair<string,string>> sortNames(const vector<pair<string,string>> chords){
     vector<pair<string,string>> sortedChords = vector<pair<string,string>>(chords);
     std::sort(sortedChords.begin(),sortedChords.end(),[](const pair<string,string> & left, const pair<string,string> & right){
-        return left.first<right.first ;
+        return (left.first + left.second) <(right.first + right.second);
     });
     return sortedChords;
+}
+
+map<string,vector<pair<string,string>>> groupNames(vector<pair<string,string>> names){
+    map<string,vector<pair<string,string>>> groupedNames = map<string,vector<pair<string,string>>>();
+    for_each(names.begin(),names.end(),[&groupedNames](const pair<string,string> & name){
+        if(groupedNames.find(name.first)==groupedNames.end())
+                groupedNames[name.first] = vector<pair<string,string>>();
+        groupedNames[name.first].push_back(name);
+    });
+    return groupedNames;
+}
+
+map<string, vector<string>> groupChordNamesByRoot(vector<pair<string,string>> names){
+    map<string,vector<string>> rootsToChords = map<string,vector<string>>();
+
+    for (auto nameIterator = names.begin(); nameIterator != names.end(); ++nameIterator)
+    {
+        if(rootsToChords.find(nameIterator->first)==rootsToChords.end()){
+            rootsToChords[nameIterator->first] = vector<string>();
+        }
+        rootsToChords[nameIterator->first].push_back(nameIterator->second);
+    }
+
+    return rootsToChords;
+    
 }
 
 

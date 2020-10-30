@@ -1,6 +1,7 @@
 #include "src/tintintabulation.h"
 #include "src/chord-names.h"
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <sstream>
 #include <algorithm>
@@ -54,9 +55,11 @@ string boldSpecificNotes(const string outputToFormat, const vector<int> notesToB
     std::for_each(chunks.begin(),chunks.end(),[&formattedChunks,noteNamesToBold](const string & word){
         string formatted = word;
         if(noteNamesToBold.end()!=find(noteNamesToBold.begin(),noteNamesToBold.end(),word)){
-            formatted = "\e[1m" + word + "\e[0m";
+            formatted = "\e[33m" + word + "\e[37m";
+        } else {
+            formatted = "\e[34m" + word + "\e[37m";
         }
-        formattedChunks+=formatted+" ";
+        formattedChunks+=" "+formatted;
     });
 
     return formattedChunks;
@@ -73,36 +76,67 @@ int main(int argc, char* argv[], char* envp[]){
         map<int,vector<vector<int>>> mapOfChordsByNumberOfNotes = groupChordsByNumberOfNotes(chords);
         int countOfFoundChords=0;
         std::cout << "\a";
-        std::cout << "---------------------------------------\n";
-        std::cout << "scale: " << spellNotes<vector<int>>(scale)<< "\n" << "chord: " << spellNotes<vector<int>>(triad) << "\n";
+        std::cout << "---------------------------------------"<< "\n";
+        std::cout << "scale: " << boldSpecificNotes(spellNotes<vector<int>>(scale),triad) << "\n" << "chord: " 
+                << boldSpecificNotes(spellNotes<vector<int>>(triad),triad) <<  "\n";
 
         
         for (std::pair<int, vector<vector<int>>> pairOfNumberOfNotesToChords : mapOfChordsByNumberOfNotes) {
-            vector<pair<string,string>> uniqueNames = sortNames(
-                filterToUniqueNames(
-                    findAllChordNamesInVectorOfChords(pairOfNumberOfNotesToChords.second)
-                )
-            );
+            map<string,vector<string>> uniqueChordsByRoot = 
+                groupChordNamesByRoot(
+                    sortNames(
+                        filterToUniqueNames(
+                            findAllChordNamesInVectorOfChords(pairOfNumberOfNotesToChords.second)
+                        )   
+                    )
+                );
 
-            if(uniqueNames.size()>0){
+            if(uniqueChordsByRoot.size()>0){
                 
-                std::cout << "---------------------------------------\n";
-                std::cout << pairOfNumberOfNotesToChords.first <<" note chords: \n";
-                std::cout << "---------------------------------------\n";
+                std::cout   << "---------------------------------------" <<"\n"
+                            << pairOfNumberOfNotesToChords.first <<" note chords: "<<"\n"
+                            << "---------------------------------------"<<"\n";
+
                 
-                auto printChord = [&countOfFoundChords,triad](const pair<string,string> & name)
-                {
-                    std::cout << name.first << name.second << makeNSpaces(18-(name.first+name.second).size()) << "-\t" << boldSpecificNotes(spellChordByName(name),triad);
-                    std::cout << "\n";
-                    countOfFoundChords++;
-                };
-                std::for_each(uniqueNames.begin(), uniqueNames.end(), printChord);
+                for(pair<string,vector<string>> chordFamily:uniqueChordsByRoot){
+
+                    string rootName = chordFamily.first;
+                    vector<string> chordTypes = chordFamily.second;
+                    countOfFoundChords+=chordTypes.size();
+
+                    auto printRow = [](string chordName, string chordSpelling){
+                        std::cout  << std::left << setw(18) << chordName << setw(18) << chordSpelling << std::right   << "\n";
+                    };
+
+
+                    auto printChord = [&countOfFoundChords,rootName,printRow,triad](const string & chordTypeName)
+                    {
+                        printRow( rootName + chordTypeName , boldSpecificNotes(spellChordByName(pair<string,string>{rootName,chordTypeName}),triad));
+                        
+                    };
+
+                    // auto printSpelling = [rootName,triad,printRow](const string & chordTypeName){
+                    //     printRow(
+                            
+                    //     );
+                    // };
+
+                    for_each(chordTypes.begin(), chordTypes.end(),printChord);
+                    // std::cout << "|" << "\n";
+
+                    // for_each(chordTypes.begin(), chordTypes.end(),printSpelling);
+                    // std::cout << "|" << "\n";
+
+
+                }
+                
+                // std::for_each(uniqueChordsByRoot.begin(), uniqueChordsByRoot.end(), printChord);
             
             }
             
             
         }
-        
+        std::cout << "...\n";
         std::cout << (chords.size()-countOfFoundChords) << " could not be named or were redundant...\n";
         std::cout << "...\n";
 
