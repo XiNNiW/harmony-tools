@@ -30,7 +30,6 @@ set<set<int>> findPossibleTintintabulationHarmony(const vector<int> scale, const
             for(const int triadNote:triad){
                 if(find(chordAccumulator.begin(),chordAccumulator.end(),triadNote)!=chordAccumulator.end())
                     triadNoteFound=true;
-                    //break;
             };
             if(triadNoteFound){
                 chords.insert(chordAccumulator);

@@ -480,11 +480,6 @@ vector<pair<string,string>> findPossibleChordNames(const vector<int> chord){
         inversion = right;
         inversion.insert( inversion.end(), left.begin(), left.end() );
 
-        if(chord.size()==2&&chord[0]==2&&chord[1]==8){
-            for(int i:inversion){cout<<i<<" ";}
-            cout<<" - is the 0th inversion\n";
-        }
-
         pair<string,string> name = nameChord(inversion);
         
         chordNames.push_back(name);
