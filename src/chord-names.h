@@ -1,5 +1,6 @@
 #include <map>
 #include <set>
+#include <unordered_set>
 #include <vector>
 #include <algorithm>
 #include <string>
@@ -403,29 +404,33 @@ vector<int> reduceChord(const vector<int> chord){
 set<int> normalizeChord(const vector<int> chord)
 {   
     vector<int> reduced = reduceChord(chord);
-    set<int> normalized = set<int>();
+    vector<int> normalized = vector<int>();
     if(chord.size()>1){
         int root = chord[0];
-        for (size_t i = 0; i < reduced.size(); i++)
+        for (size_t i = 0; i < chord.size(); i++)
         {
-            normalized.insert((reduced[i]+OCTAVE-root)%OCTAVE);
+            normalized.push_back((chord[i]+OCTAVE-root)%OCTAVE);
         }
         
     } 
 
-    return normalized;
+    sort(normalized.begin(),normalized.end(),[](const int & left, const int & right){
+        return left<right;
+    });
+
+    return set<int>(normalized.begin(),normalized.end());
 }
 
-map<int, vector<vector<int>>> groupChordsByNumberOfNotes(const vector<vector<int>> chords){
+map<int, vector<vector<int>>> groupChordsByNumberOfNotes(const set<set<int>> chords){
      map<int,vector<vector<int>>> chordsByNumberOfNotes = map<int,vector<vector<int>>>();
      
-     for_each(chords.begin(),chords.end(),[&chordsByNumberOfNotes](vector<int> chord){
-        vector<int> withoutDuplicateNotes = reduceChord(chord);
-        int chordSize = withoutDuplicateNotes.size();
+     for_each(chords.begin(),chords.end(),[&chordsByNumberOfNotes](set<int> chord){
+        
+        int chordSize = chord.size();
         if(chordSize>0&&chordSize<=7){
             if(chordsByNumberOfNotes.find(chordSize)==chordsByNumberOfNotes.end())
                 chordsByNumberOfNotes[chordSize] = vector<vector<int>>();
-            chordsByNumberOfNotes[chordSize].push_back(withoutDuplicateNotes);
+            chordsByNumberOfNotes[chordSize].push_back(vector<int>(chord.begin(),chord.end()));
         }
      });
 
@@ -451,7 +456,6 @@ vector<int> chordToIntervals(const vector<int> chord){
 pair<string, string> nameChord(const vector<int> chord){
     pair<string,string> name = pair<string,string>({"?","?"});
     vector<int> reducedChord = reduceChord(chord); 
-    vector<int> intervals = chordToIntervals(reducedChord);
     set<int> normalizedChord = normalizeChord(chord);
 
     if(CHORD_NAMES.find(normalizedChord)!=CHORD_NAMES.end()){
@@ -476,6 +480,11 @@ vector<pair<string,string>> findPossibleChordNames(const vector<int> chord){
         inversion = right;
         inversion.insert( inversion.end(), left.begin(), left.end() );
 
+        if(chord.size()==2&&chord[0]==2&&chord[1]==8){
+            for(int i:inversion){cout<<i<<" ";}
+            cout<<" - is the 0th inversion\n";
+        }
+
         pair<string,string> name = nameChord(inversion);
         
         chordNames.push_back(name);
@@ -490,8 +499,10 @@ vector<pair<string,string>> findAllChordNamesInVectorOfChords(const vector<vecto
     for_each(chordList.begin(),chordList.end(),[&](const vector<int> & chord){
         vector<pair<string,string>> possibleNames = findPossibleChordNames(chord);
         for_each(possibleNames.begin(),possibleNames.end(),[&](const pair<string,string> & name){
-            if(name.first!="?")
+            if(name.first!="?"){
                 names.push_back(name);
+            } 
+
         });
     });
 
@@ -515,19 +526,9 @@ vector<pair<string,string>> filterToUniqueNames(const vector<pair<string,string>
 vector<pair<string,string>> sortNames(const vector<pair<string,string>> chords){
     vector<pair<string,string>> sortedChords = vector<pair<string,string>>(chords);
     std::sort(sortedChords.begin(),sortedChords.end(),[](const pair<string,string> & left, const pair<string,string> & right){
-        return (left.first + left.second) <(right.first + right.second);
+        return (left.first + left.second) < ( right.first + right.second);
     });
     return sortedChords;
-}
-
-map<string,vector<pair<string,string>>> groupNames(vector<pair<string,string>> names){
-    map<string,vector<pair<string,string>>> groupedNames = map<string,vector<pair<string,string>>>();
-    for_each(names.begin(),names.end(),[&groupedNames](const pair<string,string> & name){
-        if(groupedNames.find(name.first)==groupedNames.end())
-                groupedNames[name.first] = vector<pair<string,string>>();
-        groupedNames[name.first].push_back(name);
-    });
-    return groupedNames;
 }
 
 map<string, vector<string>> groupChordNamesByRoot(vector<pair<string,string>> names){

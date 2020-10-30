@@ -2,32 +2,44 @@
 #define _TINTINTABULATION_H
 
 #include <vector>
-#include <map>
+#include <set>
+#include <unordered_set>
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 
-vector<vector<int>> findPossibleTintintabulationHarmony(const vector<int> scale, const vector<int> triad){
-    int scaleLength = scale.size();
-    int triadLength = triad.size();
-    vector<vector<int>> chords = vector<vector<int>>();
+set<set<int>> findPossibleTintintabulationHarmony(const vector<int> scale, const vector<int> triad){
+    set<set<int>> chords = set<set<int>>();
 
+    vector<int> notesVector(scale);
+    notesVector.insert(notesVector.end(),triad.begin(),triad.end());
+    set<int> _pitchClass(notesVector.begin(),notesVector.end());
+    notesVector = vector<int>(_pitchClass.begin(),_pitchClass.end());
 
-    for_each(scale.begin(),scale.end(),[&](const int & scaleNote1){
-       for_each(scale.begin(),scale.end(),[&](const int & scaleNote2){
-           for_each(scale.begin(),scale.end(),[&](const int & scaleNote3){
-               for_each(scale.begin(),scale.end(),[&](const int & scaleNote4){
-                   for_each(scale.begin(),scale.end(),[&](const int & scaleNote5){
-                       for_each(scale.begin(),scale.end(),[&](const int & scaleNote6){
-                           for_each(triad.begin(),triad.end(),[&](const int & triadNote){
-                               chords.push_back({scaleNote1,scaleNote2,scaleNote3,scaleNote4,scaleNote5,scaleNote6,triadNote});
-                           });
-                       });
-                   });
-               });
-           });
-       });
+    sort(notesVector.begin(),notesVector.end(),[](const int & left, const int & right){
+        return left<right;
     });
+
+    do{
+        set<int> chordAccumulator = set<int>();
+        vector<int> currentPermutation(notesVector);
+        for(const int note:currentPermutation){
+            chordAccumulator.insert(note);
+            bool triadNoteFound = false;
+            for(const int triadNote:triad){
+                if(find(chordAccumulator.begin(),chordAccumulator.end(),triadNote)!=chordAccumulator.end())
+                    triadNoteFound=true;
+                    //break;
+            };
+            if(triadNoteFound){
+                chords.insert(chordAccumulator);
+            }
+              
+        }
+     
+
+    }while(next_permutation(notesVector.begin(),notesVector.end()));
 
     return chords;
 }

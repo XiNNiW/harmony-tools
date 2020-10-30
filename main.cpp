@@ -72,7 +72,7 @@ int main(int argc, char* argv[], char* envp[]){
         vector<int> scale = convertStringOfIntsToVector(argv[1]);
         vector<int> triad = convertStringOfIntsToVector(argv[2]);
 
-        vector<vector<int>> chords = findPossibleTintintabulationHarmony(scale, triad);
+        set<set<int>> chords = findPossibleTintintabulationHarmony(scale, triad);
         map<int,vector<vector<int>>> mapOfChordsByNumberOfNotes = groupChordsByNumberOfNotes(chords);
         int countOfFoundChords=0;
         std::cout << "\a";
@@ -115,17 +115,10 @@ int main(int argc, char* argv[], char* envp[]){
                         
                     };
 
-                    // auto printSpelling = [rootName,triad,printRow](const string & chordTypeName){
-                    //     printRow(
-                            
-                    //     );
-                    // };
+
 
                     for_each(chordTypes.begin(), chordTypes.end(),printChord);
-                    // std::cout << "|" << "\n";
-
-                    // for_each(chordTypes.begin(), chordTypes.end(),printSpelling);
-                    // std::cout << "|" << "\n";
+                    std::cout << "\n";
 
 
                 }
@@ -137,7 +130,7 @@ int main(int argc, char* argv[], char* envp[]){
             
         }
         std::cout << "...\n";
-        std::cout << (chords.size()-countOfFoundChords) << " could not be named or were redundant...\n";
+        std::cout << (chords.size()-countOfFoundChords) << " could not be named...\n";
         std::cout << "...\n";
 
     } else {
