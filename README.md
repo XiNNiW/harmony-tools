@@ -6,20 +6,270 @@ right now it contains a simple console app that can spit out the possible chords
 
 ## example usage
 ```
-./chord-pallet "0 2 4 5 7 9 11" "1 4 8"
+./chord-pallet "D E F G A Bb C" "D F# A"
 
-C
-Cb13
-Dm9
-Em6
-Em
-Dbm
-Fb13
-Fmaj7
-G6
-Am
-Bdim7
-Dbm7
+---------------------------------------
+scale:  D E F G A Bb C
+chord:  D Gb A
+---------------------------------------
+2 note chords: 
+---------------------------------------
+A5                 A E
+
+D5                 D A
+
+G5                 G D
+
+---------------------------------------
+3 note chords: 
+---------------------------------------
+Am                 A C E
+Asus4              A D E
+
+Bb                 Bb D F
+Bbaug              Bb D Gb
+
+Csus2              C D G
+
+D                  D Gb A
+Daug               D Gb Bb
+Dm                 D F A
+Dsus2              D E A
+Dsus4              D G A
+
+F                  F A C
+
+Gm                 G Bb D
+Gsus2              G A D
+Gsus4              G C D
+
+Gbaug              Gb Bb D
+Gbdim              Gb A C
+
+---------------------------------------
+4 note chords: 
+---------------------------------------
+A6sus4             A D E Gb
+A7sus4             A D E G
+Am6                A C E Gb
+Am7                A C E G
+Amadd11            A C D E
+Amaddb13           A C E F
+Amaddb9            A Bb C E
+Asus4addb13        A D E F
+Asus4addb9         A Bb D E
+
+Bb6                Bb D F G
+Bbadd#11           Bb D E F
+Bbadd9             Bb C D F
+Bbaddb13           Bb D F Gb
+Bbmaj7             Bb D F A
+Bbmaj7sus2         Bb C F A
+Bbsus2addb13       Bb C F Gb
+
+C6                 C E G A
+C6sus2             C D G A
+C6sus4             C F G A
+C7sus2             C D G Bb
+Cadd#11            C E Gb G
+Cadd9              C D E G
+Csus2add#11        C D Gb G
+Csus2add11         C D F G
+
+D7                 D Gb A C
+D7sus2             D E A C
+D7sus4             D G A C
+Dadd11             D Gb G A
+Dadd9              D E Gb A
+Daddb13            D Gb A Bb
+Dm7                D F A C
+Dmadd11            D F G A
+Dmadd9             D E F A
+Dmaddb13           D F A Bb
+Dsus2add11         D E G A
+Dsus2addb13        D E A Bb
+Dsus4addb13        D G A Bb
+
+Em7b5              E G Bb D
+
+F6                 F A C D
+F6sus2             F G C D
+F6sus4             F Bb C D
+Fadd11             F A Bb C
+Fadd9              F G A C
+Faddb9             F Gb A C
+Fmaj7              F A C E
+Fsus2addb9         F Gb G C
+Fsus4addb9         F Gb Bb C
+
+G6sus2             G A D E
+G6sus4             G C D E
+G7sus2             G A D F
+G7sus4             G C D F
+Gm6                G Bb D E
+Gm7                G Bb D F
+Gmadd11            G Bb C D
+Gmadd9             G A Bb D
+Gmaj7sus2          G A D Gb
+Gmaj7sus4          G C D Gb
+Gmin/maj7          G Bb D Gb
+Gsus2add11         G A C D
+
+Gbm7b5             Gb A C E
+
+---------------------------------------
+5 note chords: 
+---------------------------------------
+Am6add11           A C D E Gb
+Am6addb9           A Bb C E Gb
+Am7add11           A C D E G
+Am7add13           A C E Gb G
+Am7addb13          A C E F G
+Amadd11addb13      A C D E F
+Amaddb9add11       A Bb C D E
+Amaddb9addb13      A Bb C E F
+Amb9               A Bb C E G
+
+Bb6add#11          Bb D E F G
+Bb6add9            Bb C Db F G
+Bbadd#11addb13     Bb D E F Gb
+Bbadd9add#11       Bb C D E F
+Bbadd9addb13       Bb C D F Gb
+Bbmaj79            Bb C D F A
+Bbmaj7add#11       Bb D E F A
+Bbmaj7add13        Bb D F G A
+Bbmaj7add13sus2    Bb C F G A
+Bbmaj7addb13       Bb D F Gb A
+
+C6add#11           C E Gb G A
+C6add11            C E F G A
+C6add4sus2         C D F G A
+C6add9             C D Eb G A
+C7add#11           C E Gb G Bb
+C7add11sus2        C D F G Bb
+C7add13            C E G A Bb
+C7add13sus2        C D G A Bb
+C9                 C D E G Bb
+Cadd9add#11        C D E Gb G
+Cadd9add11         C D E F G
+
+D7#9               D F Gb A C
+D7add11            D Gb G A C
+D7add11sus2        D E G A C
+D7addb13           D Gb A Bb C
+D7addb13sus2       D E A Bb C
+D9                 D E Gb A C
+Dadd11addb13       D Gb G A Bb
+Dadd9add11         D E Gb G A
+Dadd9addb13        D E Gb A Bb
+Dm7add11           D F G A C
+Dm7addb13          D F A Bb C
+Dm9                D E F A C
+Dmadd11addb13      D F G A Bb
+Dmadd9add11        D E F G A
+Dmadd9addb13       D E F A Bb
+
+F6add11            F A Bb C D
+F6add4sus2         F G Bb C D
+F6add9             F G Ab C D
+F6addb9            F Gb A C D
+Fadd9add11         F G A Bb C
+Faddb9add11        F Gb A Bb C
+Fmaj79             F G A C E
+Fmaj7add11         F A Bb C E
+Fmaj7add13         F A C D E
+Fmaj7add13sus2     F G C D E
+Fmaj7b9            F Gb A C E
+
+G6add4sus2         G A C D E
+G6add9             G A Bb D E
+G7add11sus2        G A C D F
+G7add13sus2        G A D E F
+Gm6add11           G Bb C D E
+Gm7add11           G Bb C D F
+Gm7add13           G Bb D E F
+Gm9                G A Bb D F
+Gmadd9add11        G A Bb C D
+Gmaj7add11sus2     G A C D Gb
+Gmaj7add13sus2     G A D E Gb
+Gmin/maj79         G A Bb D Gb
+Gmin/maj7add11     G Bb C D Gb
+Gmin/maj7add13     G Bb D E Gb
+
+---------------------------------------
+6 note chords: 
+---------------------------------------
+Ab9add13           A Bb C E Gb G
+Am11(b9)           A Bb C D E G
+Am7add11add13      A C D E Gb G
+Am7add11addb13     A C D E F G
+Amaddb9add11add13  A Bb C D E Gb
+Amaddb9add11addb13 A Bb C D E F
+Amb9addb13         A Bb C E F G
+
+Bbadd9add#11add13  Bb C D E F G
+Bbadd9add#11addb13 Bb C D E F Gb
+Bbmaj#11           Bb C D E F A
+Bbmaj7#11add13     Bb D E F G A
+Bbmaj7#11b13       Bb D E F Gb A
+Bbmaj9addb13       Bb C D F Gb A
+
+C#11               C D E Gb G Bb
+C11                C D E F G Bb
+C13sus2            C D F G A Bb
+C7#11add13         C E Gb G A Bb
+C7add11add13       C E F G A Bb
+C9addb13           C D E G Ab Bb
+Cadd9add#11add13   C D E Gb G A
+Cadd9add11add13    C D E F G A
+
+D11                D E Gb G A C
+D7add11addb13      D Gb G A Bb C
+D9addb13           D E Gb A Bb C
+Dadd9add11addb13   D E Gb G A Bb
+Db13sus2           D E G A Bb C
+Dm11               D E F G A C
+Dm7add11addb13     D F G A Bb C
+Dm9addb13          D E F A Bb C
+Dmadd9add11addb13  D E F G A Bb
+
+Fadd9add11add13    F G A Bb C D
+Faddb9add11add13   F Gb A Bb C D
+Fmaj11             F G A Bb C E
+Fmaj11(b9)         F Gb A Bb C E
+Fmaj7add11add13    F A Bb C D E
+Fmaj7addb9add13    F Gb A C D E
+Fmaj9addb13        F G A C Db E
+
+G13sus2            G A C D E F
+Gm11               G A Bb C D F
+Gm7add11add13      G Bb C D E F
+Gm9addb13          G A Bb D Eb F
+Gmadd9add11add13   G A Bb C D E
+
+---------------------------------------
+7 note chords: 
+---------------------------------------
+Am13(b9)           A Bb C D E Gb G
+Amb13(b9)          A Bb C D E F G
+
+Bbmaj13(#11)       Bb C D E F G A
+
+C13                C D E F G A Bb
+C13(#11)           C D E Gb G A Bb
+
+Db13               D E Gb G A Bb C
+Dmb13              D E F G A Bb C
+
+Fmaj13             F G A Bb C D E
+Fmaj13(b9)         F Gb A Bb C D E
+
+Gm13               G A Bb C D E F
+
+...
+23 could not be named...
+...
+
 ```
 
 ## build instructions
