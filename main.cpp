@@ -69,8 +69,10 @@ string boldSpecificNotes(const string outputToFormat, const vector<int> notesToB
 int main(int argc, char* argv[], char* envp[]){
 
     if(argc>2){
-        vector<int> scale = convertStringOfIntsToVector(argv[1]);
-        vector<int> triad = convertStringOfIntsToVector(argv[2]);
+        // vector<int> scale = convertStringOfIntsToVector(argv[1]);
+        // vector<int> triad = convertStringOfIntsToVector(argv[2]);        
+        vector<int> scale = noteNamesToNoteNumbers(split(argv[1]));
+        vector<int> triad = noteNamesToNoteNumbers(split(argv[2]));
 
         set<set<int>> chords = findPossibleTintintabulationHarmony(scale, triad);
         map<int,vector<vector<int>>> mapOfChordsByNumberOfNotes = groupChordsByNumberOfNotes(chords);

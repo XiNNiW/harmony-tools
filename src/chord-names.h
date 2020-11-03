@@ -41,15 +41,20 @@ map<int, string> NOTES_TO_NAME = {
 
 map<string,int> NAME_TO_NOTE = {
     {"C",0},
+    {"C#",1},
     {"Db",1},
     {"D",2},
+    {"D#",3},
     {"Eb",3},
     {"E",4},
     {"F",5},
+    {"F#",6},
     {"Gb",6},
     {"G",7},
+    {"G#",8},
     {"Ab",8},
     {"A",9},
+    { "A#",10},
     { "Bb",10},
     { "B",11}
 };
@@ -347,6 +352,16 @@ map<set<int>,string> CHORD_NAMES = {
     // {{0,3,7,11,2,6,9},"min/maj13(#11)"},  
 
 };
+
+vector<int> noteNamesToNoteNumbers(vector<string> noteNames){
+    vector<int> notes = vector<int>();
+    for(string name : noteNames){
+        if(NAME_TO_NOTE.find(name)!=NAME_TO_NOTE.end()){
+            notes.push_back(NAME_TO_NOTE[name]);
+        }
+    }
+    return notes;
+}
 
 template<typename Collection>
 string spellNotes(const Collection notes){
