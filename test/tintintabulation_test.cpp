@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
 #include "../src/tintintabulation.h"
 
+using namespace HarmonyTools::Tintintabulation;
+
 TEST(TINTAB_TEST, shouldMakeListOfChords) {
     set<set<int>> chords = findPossibleTintintabulationHarmony({0,2,4},{3,7,11});
     ASSERT_EQ(2187,chords.size());

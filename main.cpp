@@ -1,5 +1,7 @@
 #include "src/tintintabulation.h"
 #include "src/chord-names.h"
+#include "src/parsing-util.h"
+#include "src/printing-util.h"
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -7,70 +9,17 @@
 #include <algorithm>
 #include <iterator>
 
+using namespace HarmonyTools::Parsing;
+using namespace HarmonyTools::Tintintabulation;
+using namespace HarmonyTools::ChordNames;
+using namespace HarmonyTools::Printing;
 using namespace std;
 
-vector<string> split(const std::string& str)
-{   
-    vector<string> chunks = vector<string>();
-    istringstream stringStream(str);
-    copy(istream_iterator<string>(stringStream),
-         istream_iterator<string>(),
-         back_inserter(chunks));
-
-    return chunks;
-}
-
-vector<int> convertStringOfIntsToVector(const string intsAsString){
-    vector<int> ints = vector<int>();
-    vector<string> chunks = split(intsAsString);
-
-    std::for_each(chunks.begin(),chunks.end(),[&](string & chunk){
-        ints.push_back(stoi(chunk));
-    });
-
-    return ints;
-}
-
-string makeNSpaces(int n){
-    string output = "";
-    if(n>0){
-        for (size_t i = 0; i < n; i++)
-        {
-            output+=" ";
-        }
-    }
-    return output;
-}
-
-string boldSpecificNotes(const string outputToFormat, const vector<int> notesToBold){
-    set<string> noteNamesToBold = set<string>();
-    std::for_each(notesToBold.begin(),notesToBold.end(),[&noteNamesToBold](const int & note){
-        noteNamesToBold.insert(NOTES_TO_NAME[note%12]);
-    });
-
-    vector<string> chunks = split(outputToFormat);
-
-    string formattedChunks = "";
-
-    std::for_each(chunks.begin(),chunks.end(),[&formattedChunks,noteNamesToBold](const string & word){
-        string formatted = word;
-        if(noteNamesToBold.end()!=find(noteNamesToBold.begin(),noteNamesToBold.end(),word)){
-            formatted = "\e[33m" + word + "\e[37m";
-        } else {
-            formatted = "\e[34m" + word + "\e[37m";
-        }
-        formattedChunks+=" "+formatted;
-    });
-
-    return formattedChunks;
-
-}
 
 int main(int argc, char* argv[], char* envp[]){
 
     if(argc>2){
-        // vector<int> scale = convertStringOfIntsToVector(argv[1]);
-        // vector<int> triad = convertStringOfIntsToVector(argv[2]);        
+       
         vector<int> scale = noteNamesToNoteNumbers(split(argv[1]));
         vector<int> triad = noteNamesToNoteNumbers(split(argv[2]));
 
@@ -140,7 +89,7 @@ int main(int argc, char* argv[], char* envp[]){
         std::cout << "\n";
         std::cout << "call with a scale and a chord to generate a list of chords from the scale containing at least one note from the chord";
         std::cout << "\n";
-        std::cout << "EX) chord-pallet \"0 2 4 5 7 9 11\" \"1 4 8\"";
+        std::cout << "EX) ./chord-pallet \"D E F G A Bb C\" \"D F# A\"";
     }
 
     std::cout << "\n";

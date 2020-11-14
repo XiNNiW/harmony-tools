@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
 #include "../src/chord-names.h"
 
+using namespace HarmonyTools::ChordNames;
+
 void compareNames(string expected, string actual){
     EXPECT_STREQ(expected.c_str(),actual.c_str());
 }
